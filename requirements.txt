@@ -35,7 +35,8 @@ python-dotenv
 pyshorteners
 python-magic
 pymongo
-Pyrofork==2.2.11
+pyrofork==2.2.11
+pyrogram
 quoters
 qbittorrent-api
 requests
@@ -46,4 +47,4 @@ tgcrypto
 uv
 uvloop
 xattr
-yt-dlp==2023.10.7
+yt-dlp==2023.10.13
