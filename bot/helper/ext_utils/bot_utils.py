@@ -45,18 +45,18 @@ PAGE_NO      = 1
 
 
 class MirrorStatus:
-    STATUS_UPLOADING   = "Uᴘʟᴏᴀᴅɪɴɢ"
-    STATUS_DOWNLOADING = "Dᴏᴡɴʟᴏᴀᴅɪɴɢ"
-    STATUS_CLONING     = "Cʟᴏɴᴇ"
-    STATUS_QUEUEDL     = "QᴜᴇᴜᴇDL"
-    STATUS_QUEUEUP     = "QᴜᴇᴜᴇUᴘ"
-    STATUS_PAUSED      = "Pᴀᴜsᴇ"
-    STATUS_ARCHIVING   = "Aʀᴄʜɪᴠᴇ"
-    STATUS_EXTRACTING  = "Exᴛʀᴀᴄᴛ"
-    STATUS_SPLITTING   = "Sᴘʟɪᴛ"
-    STATUS_METADATA    = "Aᴅᴅɪɴɢ Mᴇᴛᴀᴅᴀᴛᴀ Pᴏᴡᴅᴇʀᴇᴅ Bʏ @Nᴏʀᴅ Bᴏᴛᴢ"
-    STATUS_CHECKING    = "CʜᴇᴄᴋUᴘ"
-    STATUS_SEEDING     = "Sᴇᴇᴅq"
+    STATUS_UPLOADING   = "Uploading"
+    STATUS_DOWNLOADING = "Downloading"
+    STATUS_CLONING     = "Clone"
+    STATUS_QUEUEDL     = "QueueDL"
+    STATUS_QUEUEUP     = "QueueUP"
+    STATUS_PAUSED      = "Pause"
+    STATUS_ARCHIVING   = "Archive"
+    STATUS_EXTRACTING  = "Extract"
+    STATUS_SPLITTING   = "Spit"
+    STATUS_METADATA    = "Adding Metadata Powered By XYRU"
+    STATUS_CHECKING    = "CheckUP"
+    STATUS_SEEDING     = "Seed"
 
 
 class setInterval:
@@ -116,7 +116,7 @@ def bt_selection_buttons(id_):
         buttons.ibutton("Pincode", f"btsel pin {gid} {pincode}")
     else:
         buttons.ubutton("Select Files", f"{BASE_URL}/app/files/{id_}?pin_code={pincode}")
-    buttons.ibutton("❌", f"btsel rm {gid} {id_}")
+    buttons.ibutton("Close", f"btsel rm {gid} {id_}")
     buttons.ibutton("Done Selecting", f"btsel done {gid} {id_}")
     return buttons.build_menu(2)
 
@@ -126,7 +126,7 @@ async def get_telegraph_list(telegraph_content):
     if len(path) > 1:
         await telegraph.edit_telegraph(path, telegraph_content)
     buttons = ButtonMaker()
-    buttons.ubutton("🔎 VIEW", f"https://te.legra.ph/{path[0]}")
+    buttons.ubutton("🔎 View", f"https://te.legra.ph/{path[0]}")
     buttons, _ = extra_btns(buttons)
     return buttons.build_menu(1)
 
@@ -144,9 +144,9 @@ def get_progress_bar_string(pct):
     p = min(max(pct, 0), 100)
     cFull = int(p // 8)
     cPart = int(p % 8 - 1)
-    p_str = '●' * cFull
+    p_str = '■' * cFull
     if cPart >= 0:
-        p_str += ['◌', '○', '○', '◎', '◉', '◕', '●'][cPart]
+        p_str += ['▤', '▥', '▦', '▧', '▨', '▩', '■'][cPart]
     p_str += '◌' * (12 - cFull)
     return f"[{p_str}]"
 
@@ -189,18 +189,18 @@ class EngineStatus:
         if not (version_cache := bot_cache.get('eng_versions')):
             get_all_versions()
             version_cache = bot_cache.get('eng_versions')
-        self.STATUS_ARIA = f"Aʀɪᴀ𝟸 v{version_cache['aria']}"
-        self.STATUS_AIOHTTP = f"AɪᴏHᴛᴛᴘ {version_cache['aiohttp']}"
-        self.STATUS_GD = f"Gᴏᴏɢʟᴇ-Aᴘɪ v{version_cache['gapi']}"
-        self.STATUS_MEGA = f"MᴇɢᴀSᴅᴋ v{version_cache['mega']}"
-        self.STATUS_QB = f"ǫBɪᴛ {version_cache['qbit']}"
-        self.STATUS_TG = f"PʏʀᴏFᴏʀᴋ v{version_cache['pyro']}"
-        self.STATUS_YT = f"Yᴛ-Dʟᴘ v{version_cache['ytdlp']}"
-        self.STATUS_EXT = "ᴘExᴛʀᴀᴄᴛ ᴠ𝟸"
-        self.STATUS_SPLIT_MERGE = f"FғMᴘᴇɢ v{version_cache['ffmpeg']}"
-        self.STATUS_ZIP = f"ᴘ𝟽Zɪᴘ v{version_cache['p7zip']}"
-        self.STATUS_QUEUE = "Sʟᴇᴇᴘ ᴠ𝟶"
-        self.STATUS_RCLONE = f"RCʟᴏɴᴇ {version_cache['rclone']}"
+        self.STATUS_ARIA = f"Aria2 v{version_cache['aria']}"
+        self.STATUS_AIOHTTP = f"AioHttp {version_cache['aiohttp']}"
+        self.STATUS_GD = f"Google-API v{version_cache['gapi']}"
+        self.STATUS_MEGA = f"MegaSDK v{version_cache['mega']}"
+        self.STATUS_QB = f"qBit {version_cache['qbit']}"
+        self.STATUS_TG = f"PyroMulti v{version_cache['pyro']}"
+        self.STATUS_YT = f"yt-dlp v{version_cache['ytdlp']}"
+        self.STATUS_EXT = "pExtract v2"
+        self.STATUS_SPLIT_MERGE = f"ffmpeg v{version_cache['ffmpeg']}"
+        self.STATUS_ZIP = f"p7zip v{version_cache['p7zip']}"
+        self.STATUS_QUEUE = "Sleep v0"
+        self.STATUS_RCLONE = f"RClone {version_cache['rclone']}"
 
 
 def get_readable_message():
@@ -504,13 +504,13 @@ async def compare_versions(v1, v2):
 async def get_stats(event, key="home"):
     user_id = event.from_user.id
     btns = ButtonMaker()
-    btns.ibutton('◀️', f'wzmlx {user_id} stats home')
+    btns.ibutton('Back', f'wzmlx {user_id} stats home')
     if key == "home":
         btns = ButtonMaker()
-        btns.ibutton('Bᴏᴛ Sᴛᴀᴛs', f'wzmlx {user_id} stats stbot')
-        btns.ibutton('Os Sᴛᴀᴛs', f'wzmlx {user_id} stats stsys')
-        btns.ibutton('Rᴇᴘᴏ Sᴛᴀᴛs', f'wzmlx {user_id} stats strepo')
-        btns.ibutton('Bᴏᴛ Lɪᴍɪᴛs', f'wzmlx {user_id} stats botlimits')
+        btns.ibutton('Bot Stats', f'wzmlx {user_id} stats stbot')
+        btns.ibutton('OS Stats', f'wzmlx {user_id} stats stsys')
+        btns.ibutton('REPO Stats', f'wzmlx {user_id} stats strepo')
+        btns.ibutton('Bot Limits', f'wzmlx {user_id} stats botlimits')
         msg = "⌬ <b><i>Bot & OS Statistics!</i></b>"
     elif key == "stbot":
         total, used, free, disk = disk_usage('/')
@@ -534,10 +534,10 @@ async def get_stats(event, key="home"):
             disk_bar=get_progress_bar_string(disk),
             disk_read=f"{get_readable_file_size(disk_io.read_bytes)} ({get_readable_time(disk_io.read_time / 1000)})"
             if disk_io
-            else "Aᴄᴄᴇss Dᴇɴɪᴇᴅ",
+            else "Access Denide",
             disk_write=f"{get_readable_file_size(disk_io.write_bytes)} ({get_readable_time(disk_io.write_time / 1000)})"
             if disk_io
-            else "Aᴄᴄᴇss Dᴇɴɪᴇᴅ",
+            else "Access Denied",
             disk_t=get_readable_file_size(total),
             disk_u=get_readable_file_size(used),
             disk_f=get_readable_file_size(free),
@@ -590,7 +590,7 @@ async def get_stats(event, key="home"):
                 UT = ('∞' if (val := config_dict['USER_MAX_TASKS']) == '' else val),
                 BT = ('∞' if (val := config_dict['BOT_MAX_TASKS']) == '' else val),
         )
-    btns.ibutton('❌', f'wzmlx {user_id} close')
+    btns.ibutton('Close', f'wzmlx {user_id} close')
     return msg, btns.build_menu(2)
 
 
