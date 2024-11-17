@@ -23,7 +23,7 @@ async def speedtest(_, message):
     test.results.share()
     result = test.results.dict()
     path = result['share']
-    string_speed = f'''
+    string_speed = f'''<blockquote expandable>
 ➲ <b><i>SPEEDTEST INFO</i></b>
 ┠ <b>Upload:</b> <code>{get_readable_file_size(result['upload'] / 8)}/s</code>
 ┠ <b>Download:</b>  <code>{get_readable_file_size(result['download'] / 8)}/s</code>
@@ -46,7 +46,7 @@ async def speedtest(_, message):
 ┠ <b>Longitude:</b> <code>{result['client']['lon']}</code>
 ┠ <b>Country:</b> <code>{result['client']['country']}</code>
 ┠ <b>ISP:</b> <code>{result['client']['isp']}</code>
-┖ <b>ISP Rating:</b> <code>{result['client']['isprating']}</code>
+┖ <b>ISP Rating:</b> <code>{result['client']['isprating']}</code></blockquote>
 '''
     try:
         pho = await sendMessage(message, string_speed, photo=path)
