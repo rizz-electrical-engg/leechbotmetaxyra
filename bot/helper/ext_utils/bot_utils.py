@@ -168,7 +168,7 @@ def get_all_versions():
     except FileNotFoundError:
         vr = ''
     try:
-        vpy = get_distribution('pyrogram').version
+        vpy = get_distribution('electrogram').version
     except DistributionNotFound:
         try:
             vpy = get_distribution('pyrofork').version
